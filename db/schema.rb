@@ -10,7 +10,48 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_03_161836) do
+ActiveRecord::Schema.define(version: 2021_01_03_165710) do
+
+  create_table "carts", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "session_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "line_items", force: :cascade do |t|
+    t.integer "menu_item_id", null: false
+    t.integer "quantity", default: 0
+    t.decimal "line_item_subtotal", precision: 15, scale: 2, default: "0.0"
+    t.decimal "unit_price", precision: 15, scale: 2, default: "0.0"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "menu_items", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "description"
+    t.string "category", null: false
+    t.string "image"
+    t.decimal "price", precision: 15, scale: 2, default: "0.0"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.decimal "tax", precision: 15, scale: 2, default: "0.0"
+    t.boolean "delivery", default: false, null: false
+    t.decimal "delivery_fee", precision: 15, scale: 2, default: "0.0"
+    t.decimal "order_subtotal", precision: 15, scale: 2, default: "0.0"
+    t.decimal "total", precision: 15, scale: 2, default: "0.0"
+    t.datetime "order_date"
+    t.integer "line_item_id"
+    t.integer "cart_id"
+    t.boolean "order_status", default: true
+    t.decimal "tax_rate", default: "0.07"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
