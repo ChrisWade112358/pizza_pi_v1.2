@@ -1,2 +1,16 @@
-<h1>Menus#index</h1>
-<p>Find me in app/views/menus/index.html.erb</p>
+<h1>Menu Index Page</h1>
+
+
+
+<% @menu_items.each  do |item| %>
+    <h2><%= item.name %></h2>
+    <p>$<%= item.price %></p>
+    <p><%= item.description %></p>
+    <%= button_to "Item Description", menu_path(item), :method => :get %>
+    
+    
+    
+<% end %>
+
+<%binding.pry%>
+<%= link_to "#{current_order.line_items.size} items in your cart", cart_path(current_cart) %>
